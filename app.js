@@ -5,6 +5,7 @@ $(document).ready(function(){
   var city = "";
   var country = "";
   var locationInfo = [];
+  var count = 1;
 
   if (navigator.geolocation) {
 
@@ -43,11 +44,45 @@ $(document).ready(function(){
   }
 
   $('.main-button').on('click', function() {
-    $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
-      $('#temp').html(Math.round(data.main.temp-273)+ ' degrees Celcius');
-      console.log(data.main.temp);
+    if(count == 1) {
+      $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
+        $('#temp').html(Math.round(data.main.temp-273)+ ' degrees Celsius');
+        // console.log(data.main.temp);
 
-    });
+      });
+      $(this).html("Celsius");
+      count = 2;
+      console.log(count);
+
+      $(".container").animate({
+        backgroundColor:'#e6fffa',
+        color:'#006652',
+        borderBottomColor:'#004d3d',
+        borderLeftColor:'#004d3d',
+        borderRightColor:'#004d3d',
+        borderTopColor:'#004d3d'
+
+      }, 500);
+    } else if(count == 2) {
+      $(this).html("Fahrenheit");
+      var Celcius = $("#temp").html().match(/\d/g).join('');
+      var Fahrenheit = parseInt(Celcius * 1.8 + 32);
+      $("#temp").html(Fahrenheit + " degrees Fahrenheit");
+      count = 1;
+
+      $(".container").animate({
+        backgroundColor:'#e6ffff',
+        color:'#006666',
+        borderBottomColor:'#003333',
+        borderLeftColor:'#003333',
+        borderRightColor:'#003333',
+        borderTopColor:'#003333'
+
+      }, 500);
+    }
+
+
+
   });
 
   // data.main.temp-273
