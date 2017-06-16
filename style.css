@@ -7,22 +7,31 @@
 }
 
 
-body {
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #e6ffee;
+}
+
+.main {
   text-align: center;
   width: 100%;
-  height: 100%;
+
+  background-repeat: no-repeat;
+  background-color: #e6ffee;
 }
 
 .container {
-  border: 3px solid #C0BEFE;
-  margin: 2em;
-  width: 100%;
-  height: 20em;
+  text-align: center;
+  margin: 3em;
   padding-bottom: 1em;
-  border-radius: 2px;
+  height: 20em;
 }
 
 .main-button {
   margin: 1em;
   margin-bottom: 2em;
+  padding: 2em;
 }

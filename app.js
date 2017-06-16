@@ -6,6 +6,8 @@ $(document).ready(function(){
   var country = "";
   var locationInfo = [];
   var count = 1;
+  var Fahrenheit = 0;
+  var Celcius = 0;
 
   if (navigator.geolocation) {
 
@@ -15,6 +17,7 @@ $(document).ready(function(){
     long = position.coords.longitude;
     $('#location').val(lat + "," + long);
     geocodeLatLng(geocoder);
+
   });
 
   } else {
@@ -31,9 +34,15 @@ $(document).ready(function(){
         if (results[1]) {
           $('#location').html(results[1].formatted_address);
           locationInfo = results[1].formatted_address.split(',');
-          country = locationInfo[2].replace(/ /g,'');
+          country = locationInfo[1].replace(/ /g,'');
           city = locationInfo[0];
           console.log(country + ' ' + city);
+
+          $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
+            Celcius = Math.round(data.main.temp-273);
+
+          });
+
         } else {
           window.alert('No results found');
         }
@@ -44,46 +53,45 @@ $(document).ready(function(){
   }
 
   $('.main-button').on('click', function() {
-    if(count == 1) {
-      $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
-        $('#temp').html(Math.round(data.main.temp-273)+ ' degrees Celsius');
-        // console.log(data.main.temp);
-
-      });
-      $(this).html("Celsius");
-      count = 2;
-      console.log(count);
-
+    var styles = {
+      background: 'url(./images/summer.jpg) no-repeat center center fixed',
+      opacity: 0.9
+    };
+    if(Celcius >= 19) {
+      console.log("here");
+      $(".main").css(styles);
+      $("html").animate({backgroundColor: "#ffffb3"}, 500);
+      $("h1").animate({
+        color: "#666600",
+        opacity: 1
+      }, 500);
       $(".container").animate({
-        backgroundColor:'#e6fffa',
-        color:'#006652',
-        borderBottomColor:'#004d3d',
-        borderLeftColor:'#004d3d',
-        borderRightColor:'#004d3d',
-        borderTopColor:'#004d3d'
+        color:'#666600',
+        opacity: 0.9
 
       }, 500);
-    } else if(count == 2) {
-      $(this).html("Fahrenheit");
-      var Celcius = $("#temp").html().match(/\d/g).join('');
-      var Fahrenheit = parseInt(Celcius * 1.8 + 32);
-      $("#temp").html(Fahrenheit + " degrees Fahrenheit");
-      count = 1;
-
-      $(".container").animate({
-        backgroundColor:'#e6ffff',
-        color:'#006666',
-        borderBottomColor:'#003333',
-        borderLeftColor:'#003333',
-        borderRightColor:'#003333',
-        borderTopColor:'#003333'
-
-      }, 500);
+    } else if (Celcius <= 19 && Celcius >= 10) {
+      $(".main").css('background','url(./images/spring.jpg) no-repeat center center fixed');
     }
 
 
+    if(count == 1) {
+      $('#temp').html(Celcius + ' degrees Celsius');
+      $(this).html("Fahrenheit");
+      count = 2;
+      console.log(count);
+    } else if(count == 2) {
+      $(this).html("Celsius");
+      Celcius = $("#temp").html().match(/\d/g).join('');
+      Fahrenheit = parseInt(Celcius * 1.8 + 32);
+      $("#temp").html(Fahrenheit + " degrees Fahrenheit");
+      count = 1;
+    }
 
   });
+
+
+
 
   // data.main.temp-273
 
