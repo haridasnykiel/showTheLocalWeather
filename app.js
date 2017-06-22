@@ -7,7 +7,7 @@ $(document).ready(function(){
   var locationInfo = [];
   var count = 1;
   var Fahrenheit = 0;
-  var Celcius = 5;
+  var Celcius = 0;
 
   if (navigator.geolocation) {
 
@@ -39,7 +39,7 @@ $(document).ready(function(){
           console.log(country + ' ' + city);
 
           $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
-            // Celcius = Math.round(data.main.temp-273);
+            Celcius = Math.round(data.main.temp-273);
 
           });
 
