@@ -7,7 +7,7 @@ $(document).ready(function(){
   var locationInfo = [];
   var count = 1;
   var Fahrenheit = 0;
-  var Celcius = 0;
+  var Celcius = 5;
 
   if (navigator.geolocation) {
 
@@ -39,7 +39,7 @@ $(document).ready(function(){
           console.log(country + ' ' + city);
 
           $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
-            Celcius = Math.round(data.main.temp-273);
+            // Celcius = Math.round(data.main.temp-273);
 
           });
 
@@ -54,24 +54,82 @@ $(document).ready(function(){
 
   $('.main-button').on('click', function() {
     var styles = {
-      background: 'url(./images/summer.jpg) no-repeat center center fixed',
+      background: 'url(./images/summer.jpg) center center fixed',
       opacity: 0.9
     };
-    if(Celcius >= 19) {
+    if(Celcius >= 20) {
       console.log("here");
-      $(".main").css(styles);
-      $("html").animate({backgroundColor: "#ffffb3"}, 500);
+      $("html").css(styles);
       $("h1").animate({
         color: "#666600",
+        padding: 7,
         opacity: 1
       }, 500);
+      $(".main").css({border: '0 solid #ffff00'}).animate({backgroundColor: "#ffffb3", borderWidth: 4}, 500);
       $(".container").animate({
         color:'#666600',
-        opacity: 0.9
+        height: '18em',
+        opacity: 0.8
 
       }, 500);
-    } else if (Celcius <= 19 && Celcius >= 10) {
-      $(".main").css('background','url(./images/spring.jpg) no-repeat center center fixed');
+
+    } else if (Celcius <= 19 && Celcius >= 15) {
+
+      var stylesSpring = {
+        background: 'url(./images/spring.jpg) center center fixed',
+        opacity: 0.9
+      };
+      $("html").css(stylesSpring);
+      $("h1").animate({
+        color: "#008000",
+        padding: 7,
+        opacity: 1
+      }, 500);
+      $(".main").css({border: '0 solid #42ff45'}).animate({backgroundColor: "#adffae", borderWidth: 4}, 500);
+      $(".container").animate({
+        color:'#008000',
+        height: '18em',
+        opacity: 0.8
+
+      }, 500);
+    } else if (Celcius <= 14 && Celcius >= 7) {
+
+      var stylesAutumn = {
+        background: 'url(./images/Autumn.jpg) center center fixed',
+        opacity: 0.9
+      };
+      $("html").css(stylesAutumn);
+      $("h1").animate({
+        color: "#994d00",
+        padding: 7,
+        opacity: 1
+      }, 500);
+      $(".main").css({border: '0 solid #f37736'}).animate({backgroundColor: "#ffcc99", borderWidth: 4}, 500);
+      $(".container").animate({
+        color:'#994d00',
+        height: '18em',
+        opacity: 0.8
+
+      }, 500);
+    } else if (Celcius <= 6) {
+
+      var stylesWinter = {
+        background: 'url(./images/winter.jpg) center center fixed',
+        opacity: 0.9
+      };
+      $("html").css(stylesWinter);
+      $("h1").animate({
+        color: "#0059b3",
+        padding: 7,
+        opacity: 1
+      }, 500);
+      $(".main").css({border: '0 solid #0015ff'}).animate({backgroundColor: "#99ccff", borderWidth: 4}, 500);
+      $(".container").animate({
+        color:'#0059b3',
+        height: '18em',
+        opacity: 0.8
+
+      }, 500);
     }
 
 
@@ -89,13 +147,5 @@ $(document).ready(function(){
     }
 
   });
-
-
-
-
-  // data.main.temp-273
-
-
-
 
 });
