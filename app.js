@@ -36,11 +36,10 @@ $(document).ready(function(){
           locationInfo = results[1].formatted_address.split(',');
           country = locationInfo[1].replace(/ /g,'');
           city = locationInfo[0];
-          console.log(country + ' ' + city);
+          console.log(locationInfo);
 
-          $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=" + city + ',' + country + "&APPID=9334f947893792dcb9b2e2c05ae23eb0",  function( data ) {
-            Celcius = Math.round(data.main.temp-273);
-
+          $.getJSON("https://thingproxy.freeboard.io/fetch/https://api.darksky.net/forecast/169c7f8aff478c449a3d6d2c16dc0a8b/"+ lat +","+ long ,  function( data ) {
+            Fahrenheit = Math.round(data.currently.temperature);
           });
 
         } else {
@@ -134,15 +133,15 @@ $(document).ready(function(){
 
 
     if(count == 1) {
-      $('#temp').html(Celcius + ' degrees Celsius');
-      $(this).html("Fahrenheit");
-      count = 2;
-      console.log(count);
-    } else if(count == 2) {
+      $('#temp').html(Fahrenheit + ' degrees Fahrenheit');
       $(this).html("Celsius");
-      Celcius = $("#temp").html().match(/\d/g).join('');
-      Fahrenheit = parseInt(Celcius * 1.8 + 32);
-      $("#temp").html(Fahrenheit + " degrees Fahrenheit");
+      count = 2;
+      console.log(Fahrenheit);
+    } else if(count == 2) {
+      $(this).html("Fahrenheit");
+      Fahrenheit = $("#temp").html().match(/\d/g).join('');
+      Celcius = parseInt((Fahrenheit - 32) / 1.8);
+      $("#temp").html(Celcius + " degrees Celcius");
       count = 1;
     }
 
