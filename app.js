@@ -56,7 +56,7 @@ $(document).ready(function(){
       background: 'url(./images/summer.jpg) center center fixed',
       opacity: 0.9
     };
-    if(Celcius >= 20) {
+    if(Fahrenheit >= 68) {
       console.log("here");
       $("html").css(styles);
       $("h1").animate({
@@ -72,7 +72,7 @@ $(document).ready(function(){
 
       }, 500);
 
-    } else if (Celcius <= 19 && Celcius >= 15) {
+    } else if (Fahrenheit <= 66 && Fahrenheit >= 59) {
 
       var stylesSpring = {
         background: 'url(./images/spring.jpg) center center fixed',
@@ -91,7 +91,7 @@ $(document).ready(function(){
         opacity: 0.8
 
       }, 500);
-    } else if (Celcius <= 14 && Celcius >= 7) {
+    } else if (Fahrenheit <= 57 && Fahrenheit >= 44) {
 
       var stylesAutumn = {
         background: 'url(./images/Autumn.jpg) center center fixed',
@@ -110,7 +110,7 @@ $(document).ready(function(){
         opacity: 0.8
 
       }, 500);
-    } else if (Celcius <= 6) {
+    } else if (Fahrenheit <= 42) {
 
       var stylesWinter = {
         background: 'url(./images/winter.jpg) center center fixed',
